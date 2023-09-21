@@ -19,6 +19,10 @@ jobs:
       checks: write
 
     steps:
+      - name: Git Checkout
+        uses: actions/checkout@v2
+        with:
+          submodules: recursive
       - name: Rust Toolchain
         uses: actions-rs/toolchain@v1
         with:
