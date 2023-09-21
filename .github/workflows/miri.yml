@@ -33,17 +33,7 @@ jobs:
       - name: Install Miri
         run: |
           rustup toolchain install nightly --component miri
-      - name: Setup Miri
-        uses: actions-rs/cargo@v1
-        with:
-          command: miri
-          args: setup
-      - name: Cargo clean
-        uses: actions-rs/cargo@v1
-        with:
-          command: clean
+          rustup override set nightly
+          cargo miri setup
       - name: Test with Miri
-        uses: actions-rs/cargo@v1
-        with:
-          command: miri
-          args: test serde --features "${{ matrix.features }}"
+        run: MIRIFLAGS="-Zmiri-disable-isolation" cargo miri test serde --features "${{ matrix.features }}"
