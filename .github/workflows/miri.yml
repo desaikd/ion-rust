@@ -35,5 +35,9 @@ jobs:
           rustup toolchain install nightly --component miri
           rustup override set nightly
           cargo miri setup
-      - name: Test with Miri
+      - name: Test with Miri (ubuntu and macos)
+        if: matrix.os == 'ubuntu-latest' || matrix.os == 'macos-latest'
         run: MIRIFLAGS="-Zmiri-disable-isolation" cargo miri test serde --features "${{ matrix.features }}"
+      - name: Test with Miri (windows)
+        if: matrix.os == 'windows-latest'
+        run: $env:MIRIFLAGS="-Zmiri-disable-isolation" ; cargo miri test serde --features "${{ matrix.features }}"
