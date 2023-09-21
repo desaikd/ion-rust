@@ -34,6 +34,10 @@ jobs:
         with:
           command: miri
           args: setup
+      - name: Cargo clean
+        uses: actions-rs/cargo@v1
+        with:
+          command: clean
       - name: Test with Miri
         uses: actions-rs/cargo@v1
         with:
