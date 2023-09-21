@@ -30,7 +30,11 @@ jobs:
         run: |
           rustup toolchain install nightly --component miri
           rustup override set nightly
-          cargo miri setup
+      - name: Setup Miri
+        uses: actions-rs/cargo@v1
+        with:
+          command: miri
+          args: setup
       - name: Test with Miri
         uses: actions-rs/cargo@v1
         with:
